@@ -7,14 +7,22 @@ function shrinkImage($file)
 {
 
 	$maxDimension = c::get('ka.image.shrink.maxDimension', 1000);
+	$customConfigArray = c::get('ka.image.shrink.customConfig', array());
 
 	try {
 		if ($file->type() == 'image' and ($file->width() > $maxDimension or $file->height() > $maxDimension)) {
 
+			$config = [
+				'width' => $maxDimension,
+				'height' => $maxDimension
+			];
+
+			$config = array_merge($config, $customConfigArray);
+
 			// Get original file path
 			$originalPath = $file->dir() . '/' . $file->filename();
 			// Create a thumb and get its path
-			$resized = $file->resize($maxDimension, $maxDimension);
+			$resized = $file->thumb($config);
 			$resizedPath = $resized->dir() . '/' . $resized->filename();
 			// Replace the original file with the resized one
 			copy($resizedPath, $originalPath);
