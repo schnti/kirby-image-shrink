@@ -19,7 +19,7 @@ kirby plugin:install schnti/kirby-image-shrink
 ```php
 c::set('ka.image.shrink.maxDimension', 2000);
 c::set('ka.image.shrink.customConfig', array(
-    'imagekit.lazy' => false // e.q. for use with https://github.com/fabianmichael/kirby-imagekit
+    'imagekit.lazy' => false // e.g. for use with https://github.com/fabianmichael/kirby-imagekit
 ));
 ```
 
